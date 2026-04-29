@@ -5,6 +5,7 @@
 import {onMounted, useEffect} from "@odoo/owl";
 import {FormController} from "@web/views/form/form_controller";
 import {useService} from "@web/core/utils/hooks";
+import { ThirdStepView } from "helpdesk_portal/static/src/apps/create_ticket/views/third_step/third_step";
 
 export class StockBarcodesFormController extends FormController {
     setup() {
@@ -59,7 +60,39 @@ export class StockBarcodesFormController extends FormController {
                     countApply.length > 0 ? countApply[0].count_inventory_quants : 0
                 );
             }
+
+            if(this.buttonList){
+                this.setFocusEventList()
+            }
+
+            this.focusBarcodeInput()
         });
+    }
+
+    get buttonList(){
+        return document && document.querySelector(".oe_stock_barcodes_bottombar")
+    }
+
+    setFocusEventList() {
+        // 1. Buscamos el contenedor padre (una sola vez)
+        const container = this.buttonList;
+        
+        if (!container) return;
+
+        // 2. Seleccionamos todos los botones dentro de ese contenedor
+        const buttons = container.querySelectorAll("button");
+
+        // 3. Iteramos sobre cada botón y agregamos el listener
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", this.focusBarcodeInput.bind(this));
+        })
+    }
+
+    focusBarcodeInput(){
+        const barcodeInput = document.querySelector(".o-barcode-input");
+        if (barcodeInput) {
+            barcodeInput.focus();
+        }
     }
 
     countApplyInventory(countApply = 0) {
