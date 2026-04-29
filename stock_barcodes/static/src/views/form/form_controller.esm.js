@@ -5,7 +5,6 @@
 import {onMounted, useEffect} from "@odoo/owl";
 import {FormController} from "@web/views/form/form_controller";
 import {useService} from "@web/core/utils/hooks";
-import { ThirdStepView } from "helpdesk_portal/static/src/apps/create_ticket/views/third_step/third_step";
 
 export class StockBarcodesFormController extends FormController {
     setup() {
